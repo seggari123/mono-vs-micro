@@ -2,22 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monolithic vs Microservices</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monolithic vs Microservices Architecture</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .description {
+      max-width: 600px;
+      margin: auto;
+      color: #444;
+      font-size: 1rem;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .dropzone {
+      width: 300px;
+      min-height: 220px;
+      padding: 10px;
+      background: #fff;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .dropzone h2 {
+      margin-top: 0;
+    }
+
+    .services-drop {
+      min-height: 60px;
+    }
+
+    .services {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .service {
+      padding: 10px 15px;
+      background: #e0f7fa;
+      border: 1px solid #00acc1;
+      border-radius: 5px;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .info {
+      font-size: 0.9rem;
+      color: #333;
+      margin-top: 10px;
+      padding: 5px;
+      background: #eef;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
   <h1>Monolithic vs Microservices Architecture</h1>
   <p class="description">
-    Drag services to each architecture to visualize how they are structured.
+    Drag the services below into either architecture to visualize how they're structured.
   </p>
 
   <div class="container">
     <div class="dropzone" id="monolith">
       <h2>Monolithic</h2>
+      <div class="services-drop" id="mono-drop"></div>
+      <p class="info" id="mono-info">
+        Drop services here to simulate a monolithic architecture.
+      </p>
     </div>
+
     <div class="dropzone" id="microservices">
       <h2>Microservices</h2>
+      <div class="services-drop" id="micro-drop"></div>
+      <p class="info" id="micro-info">
+        Drop services here to simulate microservices architecture.
+      </p>
     </div>
   </div>
 
@@ -29,6 +107,57 @@
     <div class="service" draggable="true">Checkout Service</div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let draggedItem = null;
+
+    document.querySelectorAll(".service").forEach(service => {
+      service.addEventListener("dragstart", () => {
+        draggedItem = service;
+        setTimeout(() => service.style.display = "none", 0);
+      });
+
+      service.addEventListener("dragend", () => {
+        setTimeout(() => {
+          draggedItem.style.display = "block";
+          draggedItem = null;
+        }, 0);
+      });
+    });
+
+    const dropzones = {
+      monolith: {
+        zone: document.getElementById("mono-drop"),
+        info: document.getElementById("mono-info")
+      },
+      microservices: {
+        zone: document.getElementById("micro-drop"),
+        info: document.getElementById("micro-info")
+      },
+      services: {
+        zone: document.getElementById("services")
+      }
+    };
+
+    Object.values(dropzones).forEach(({ zone }) => {
+      zone.addEventListener("dragover", (e) => e.preventDefault());
+      zone.addEventListener("drop", () => {
+        if (draggedItem) zone.appendChild(draggedItem);
+        updateExplanation();
+      });
+    });
+
+    function updateExplanation() {
+      const monoCount = dropzones.monolith.zone.children.length;
+      const microCount = dropzones.microservices.zone.children.length;
+
+      dropzones.monolith.info.innerText = monoCount > 0
+        ? "All services are bundled into one unit. If one fails, the whole app may fail. Easier to build but harder to scale independently."
+        : "Drop services here to simulate a monolithic architecture.";
+
+      dropzones.microservices.info.innerText = microCount > 0
+        ? "Each service is deployed independently. They can scale or fail in isolation. Best for large-scale, resilient apps."
+        : "Drop services here to simulate microservices architecture.";
+    }
+  </script>
 </body>
 </html>
