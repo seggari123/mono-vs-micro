@@ -1,0 +1,48 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.description {
+  max-width: 600px;
+  margin: auto;
+  font-size: 1rem;
+  color: #444;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 30px 0;
+}
+
+.dropzone {
+  width: 300px;
+  min-height: 200px;
+  padding: 10px;
+  background: #fff;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+}
+
+.dropzone h2 {
+  margin-top: 0;
+}
+
+.services {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.service {
+  padding: 10px 15px;
+  background: #e0f7fa;
+  border: 1px solid #00acc1;
+  border-radius: 5px;
+  cursor: grab;
+}
