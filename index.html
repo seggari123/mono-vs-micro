@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monolithic vs Microservices</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Monolithic vs Microservices Architecture</h1>
+  <p class="description">
+    Drag services to each architecture to visualize how they are structured.
+  </p>
+
+  <div class="container">
+    <div class="dropzone" id="monolith">
+      <h2>Monolithic</h2>
+    </div>
+    <div class="dropzone" id="microservices">
+      <h2>Microservices</h2>
+    </div>
+  </div>
+
+  <h3>Available Services</h3>
+  <div class="services" id="services">
+    <div class="service" draggable="true">Auth Service</div>
+    <div class="service" draggable="true">Product Service</div>
+    <div class="service" draggable="true">Cart Service</div>
+    <div class="service" draggable="true">Checkout Service</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
